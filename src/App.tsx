@@ -1,7 +1,14 @@
-import type { Component } from "solid-js";
+import { createSignal, onMount, type Component } from "solid-js";
+
+const apis = window.apis;
 
 const App: Component = () => {
-    return <button class="btn">Hello</button>;
+    const [name, setName] = createSignal("");
+    onMount(async () => {
+        const name = await apis.sendMessage("hello", undefined);
+        setName(name);
+    });
+    return <button class="btn">Hello {name()}</button>;
 };
 
 export default App;

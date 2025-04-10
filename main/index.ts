@@ -1,5 +1,7 @@
 import { app, BrowserWindow } from "electron";
-import logger from "./log";
+import path from "path";
+import logger from "./logger";
+import "./ipc";
 
 logger.info("start app...");
 
@@ -7,6 +9,9 @@ app.whenReady().then(async () => {
     const win = new BrowserWindow({
         minWidth: 800,
         minHeight: 600,
+        webPreferences: {
+            preload: path.join(app.getAppPath(), "build/preload.js"),
+        },
     });
     if (app.isPackaged) {
         await win.loadFile("dist/index.html");
