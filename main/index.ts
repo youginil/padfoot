@@ -1,6 +1,9 @@
 import { app, BrowserWindow } from "electron";
+import logger from "./log";
 
-app.on("ready", async () => {
+logger.info("start app...");
+
+app.whenReady().then(async () => {
     const win = new BrowserWindow({
         minWidth: 800,
         minHeight: 600,
@@ -12,4 +15,10 @@ app.on("ready", async () => {
         win.webContents.openDevTools();
     }
     await app.dock?.show();
+    logger.info("app is started");
+});
+
+app.on("window-all-closed", () => {
+    logger.info("app quit");
+    app.quit();
 });
