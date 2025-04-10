@@ -1,2 +1,3 @@
-# padfoot
+# PaDFoot
+
 A free PDF editor

@@ -1,0 +1,10 @@
+{
+    "overrides": [
+        {
+            "files": ["*.(json|html|css|js|ts|tsx)"],
+            "options": {
+                "tabWidth": 4
+            }
+        }
+    ]
+}
