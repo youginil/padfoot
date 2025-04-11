@@ -6,8 +6,9 @@
     "type": "module",
     "scripts": {
         "dev:web": "vite",
-        "dev:main": "vite build --mode development -c vite.main.ts && electron .",
+        "dev:main": "npm run build:dev:main && electron .",
         "build:web": "vite build",
+        "build:dev:main": "vite build --mode development -c vite.main.ts",
         "build:main": "vite build -c vite.main.ts",
         "make": "npm run build:web && npm run build:main && electron-builder"
     },

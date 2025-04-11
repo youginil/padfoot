@@ -6,11 +6,15 @@ import "./ipc";
 logger.info("start app...");
 
 app.whenReady().then(async () => {
+    const preloadScriptPath = path.join(
+        app.getAppPath(),
+        (app.isPackaged ? "" : "../") + "build/preload.js",
+    );
     const win = new BrowserWindow({
         minWidth: 800,
         minHeight: 600,
         webPreferences: {
-            preload: path.join(app.getAppPath(), "build/preload.js"),
+            preload: preloadScriptPath,
         },
     });
     if (app.isPackaged) {
