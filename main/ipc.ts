@@ -1,4 +1,5 @@
-import { BrowserWindow, IpcMainEvent, ipcMain } from "electron";
+import { BrowserWindow, IpcMainEvent, dialog, ipcMain } from "electron";
+import { openPDFFile } from "./pdf";
 
 export function notifyConfigChanged() {
     BrowserWindow.getAllWindows().forEach((win) => {
@@ -26,4 +27,23 @@ function addAsyncListener<K extends keyof IpcMessage>(
     );
 }
 
-addAsyncListener("hello", async () => "world");
+addAsyncListener("open", async () => {
+    const windows = BrowserWindow.getAllWindows();
+    if (windows.length === 0) {
+        return null;
+    }
+    const ret = await dialog.showOpenDialog(windows[0], {
+        properties: ["openFile"],
+        filters: [
+            {
+                extensions: [".pdf"],
+                name: "Only PDF",
+            },
+        ],
+    });
+    if (ret.canceled || ret.filePaths.length === 0) {
+        return null;
+    }
+    const filepath = ret.filePaths[0];
+    return openPDFFile(filepath);
+});
