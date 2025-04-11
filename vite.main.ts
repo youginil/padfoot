@@ -14,6 +14,7 @@ export default defineConfig(({ mode }) => {
                 output: {
                     dir: "./dist",
                     entryFileNames: "[name].js",
+                    sourcemap: !isProd,
                 },
                 external: [
                     "fs",
